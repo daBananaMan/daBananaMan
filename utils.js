@@ -11,54 +11,34 @@ class Utils {
             "id": "Utils",
             "name": "Utils",
             "blocks": [{
-                        "opcode": "buttonPressedReleased",
-                        "blockType": "hat",
-                        "text": "button [b] [eventType]",
+                        "opcode": "substring
+                        "blockType": "reporter",
+                        "text": "create a substring of [str] starting at [a] and ending at [b]",
                         "arguments": {
+                            "str": {
+                                "type": "string",
+                                "defaultValue": "Hello World"
+                            },
+                            "a": {
+                                "type": "number",
+                                "defaultValue": "6",
+                            },
                             "b": {
                                 "type": "number",
-                                "defaultValue": "0"
-                            },
-                            "eventType": {
-                                "type": "number",
-                                "defaultValue": "1",
-                                "menu": "pressReleaseMenu"
+                                "defaultValue": "11",
                             },
                         },
                     },
-            ],
-            "menus": {
-                "pressReleaseMenu": [{text:"press",value:1}, {text:"release",value:0}],
-            }            
+            ],   
         };
     }
     
-    update() {
-        if (this.runtime.currentMSecs == this.currentMSecs) 
-            return // not a new polling cycle
-        this.currentMSecs = this.runtime.currentMSecs
-        var gamepads = navigator.getGamepads()
-        if (gamepads == null || gamepads.length == 0 || gamepads[0] == null) {
-            // different number of buttons, so new gamepad
-            this.previousButtons = []
-            this.currentButtons = []
-            return
-        }
-        var gamepad = gamepads[0]
-        if (gamepad.buttons.length != this.previousButtons.length) {
-            this.previousButtons = []
-            for (var i = 0; i < gamepad.buttons.length; i++) 
-                this.previousButtons.push(false)
-        }
-        else {
-            this.previousButtons = this.currentButtons
-        }
-        this.currentButtons = []
-        for (var i = 0; i < gamepad.buttons.length; i++) 
-            this.currentButtons.push(gamepad.buttons[i].pressed)
-    }
     
     
+}
+
+substring({str, a, b}){
+    return str.substring(a, b);
 }
 
 (function() {
