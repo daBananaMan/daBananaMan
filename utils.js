@@ -53,20 +53,80 @@ class ScratchFetch {
                             }
                         },
                         {
-                            "opcode": "join",
+                            "opcode": "lshift",
                             "blockType": "reporter",
-                            "text": "join [a] with [b]",
+                            "text": "[a] << [b]",
                             "arguments": {
                                 "a": {
-                                    "type": "string",
-                                    "defaultValue": "Hello"
+                                    "type": "number",
+                                    "defaultValue": "2"
                                 },
                                 "b": {
-                                    "type": "string",
-                                    "defaultValue": "World"
+                                    "type": "number",
+                                    "defaultValue": "4"
                                 },
                             }
                         },
+                        {
+                            "opcode": "rshift",
+                            "blockType": "reporter",
+                            "text": "[a] >> [b]",
+                            "arguments": {
+                                "a": {
+                                    "type": "number",
+                                    "defaultValue": "2"
+                                },
+                                "b": {
+                                    "type": "number",
+                                    "defaultValue": "4"
+                                },
+                            }
+                        },
+                        {
+                            "opcode": "and",
+                            "blockType": "reporter",
+                            "text": "[a] & [b]",
+                            "arguments": {
+                                "a": {
+                                    "type": "number",
+                                    "defaultValue": "2"
+                                },
+                                "b": {
+                                    "type": "number",
+                                    "defaultValue": "4"
+                                },
+                            }
+                        },
+                        {
+                            "opcode": "or",
+                            "blockType": "reporter",
+                            "text": "[a] | [b]",
+                            "arguments": {
+                                "a": {
+                                    "type": "number",
+                                    "defaultValue": "2"
+                                },
+                                "b": {
+                                    "type": "number",
+                                    "defaultValue": "4"
+                                },
+                            }
+                            },
+                            {
+                            "opcode": "xor",
+                            "blockType": "reporter",
+                            "text": "[a] ^ [b]",
+                            "arguments": {
+                                "a": {
+                                    "type": "number",
+                                    "defaultValue": "2"
+                                },
+                                "b": {
+                                    "type": "number",
+                                    "defaultValue": "4"
+                                },
+                            }
+                            },
                 ],
         };
     }
@@ -74,13 +134,24 @@ class ScratchFetch {
     fetchURL({url}) {
         return fetch(url).then(response => response.text())
     }
-    join({a,b}){
-        return a + b
+    lshift({a,b}){
+        return a << b
+    }
+    rshift({a,b}){
+        return a >> b
+    }
+    and({a,b}){
+        return a & b
+    }
+    or({a,b}){
+        return a & b
+    }
+    xor({a,b}){
+        return a & b
     }
     substring({str,a,b}){
         return str.substring(a, b)
     }
-    
     jsonExtract({name,data}) {
         var parsed = JSON.parse(data)
         if (name in parsed) {
